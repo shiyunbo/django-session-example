@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>需要邀请码才能访问此页面</h3>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if form %}
+<form action="{% url 'myapp:code_verify' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">提交</button>
+</form>
+{% else %}
+    <p>这部分属于隐藏内容。如果你能看到这个内容，说明你邀请码正确且会话未过期。</p>
+{% endif %}
+
+</body>
+</html>
